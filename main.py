@@ -16,6 +16,9 @@ OUTPUT = "/output/entry.png"
 def main():
     os.makedirs("/output", exist_ok=True)
     shutil.copyfile(SOURCE, OUTPUT)
+    # Guard: the output must be an exact copy of the bundled image.
+    if os.path.getsize(OUTPUT) != os.path.getsize(SOURCE):
+        raise RuntimeError("output size does not match the bundled image")
 
 
 if __name__ == "__main__":
